@@ -73,17 +73,12 @@ class CTkTabview(ttk.Notebook):
         super().add(frame, text=name)
         return frame
 
-    def tab(self, tab_id_or_name, option=None, **kwargs):
-        if option is not None or len(kwargs) > 0:
-            return ttk.Notebook.tab(self, tab_id_or_name, option, **kwargs)
-
+    def tab(self, name):
         tabs = self.tabs()
         for tab_id in tabs:
-            texto = ttk.Notebook.tab(self, tab_id, "text")
-            if texto == tab_id_or_name:
+            if self.tab(tab_id, "text") == name:
                 return self.nametowidget(tab_id)
-
-        return ttk.Notebook.tab(self, tab_id_or_name)
+        raise KeyError(name)
 
 
 class CTkOptionMenu(tk.OptionMenu):
